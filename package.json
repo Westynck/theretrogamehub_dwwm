@@ -1,0 +1,11 @@
+{
+  "name": "theretrogamehub_dwwm",
+  "version": "1.0.0",
+  "description": "projet dwwm backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "philippe",
+  "license": "ISC"
+}
