@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const PORT = 8000;
+require("dotenv").config();
+const sequelize = require("./database");
 // const router = require("./routers/routers");
 const cors = require("cors");
 
@@ -18,6 +19,6 @@ app.get("*", (req, res) => {
   res.status(501).send("Not Implemented");
 });
 
-app.listen(PORT, () => {
-  console.log(`App listening at http://localhost:${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`App listening at http://localhost:${process.env.PORT}`);
 });
