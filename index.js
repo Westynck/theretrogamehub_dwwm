@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const sequelize = require("./database");
+const DB = require("./database");
 // const router = require("./routers/routers");
 const cors = require("cors");
 
@@ -19,6 +19,18 @@ app.get("*", (req, res) => {
   res.status(501).send("Not Implemented");
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`App listening at http://localhost:${process.env.PORT}`);
-});
+DB.authenticate()
+  .then(() => {
+    console.log("database connected");
+  })
+  .then(() => {
+    app.listen(process.env.PORT, () => {
+      console.log(`App listening at http://localhost:${process.env.PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log(
+      "Erreur en essayant de se connecter à la base de données",
+      error
+    );
+  });
