@@ -41,9 +41,13 @@ router.delete("/admin/members/:id", membersController.deleteMember); //cette rou
 
 //les routes admin pour la gestion des éditeurs
 router.get("/admin/editors", editorsController.getAllEditors); //cette route permet de récupérer tous les éditeurs
+
 router.get("/admin/editors/:id", editorsController.getEditorById); //cette route permet de récupérer un éditeur par son id
+
 router.post("/admin/editors", editorsController.createEditor); //cette route permet de créer un éditeur
+
 router.patch("/admin/editors/:id", editorsController.updateEditor); //cette route permet de modifier un éditeur
+
 router.delete("/admin/editors/:id", editorsController.deleteEditor); //cette route permet de supprimer un éditeur
 
 module.exports = router;
