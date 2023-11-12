@@ -3,7 +3,9 @@ const editorsController = require("../controllers/editors");
 const router = express.Router();
 
 router.get("/editor", editorsController.findEditor); //cette route permet de récupérer un éditeur par son nom
+
 router.get("/editors", editorsController.getAllEditors); //cette route permet de récupérer tous les éditeurs
+
 router.get("/editors/:id", editorsController.getEditorById); //cette route permet de récupérer un éditeur par son id
 
 module.exports = router;
