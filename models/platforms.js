@@ -7,28 +7,146 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    //!! Methode pour créer une plateforme
+    static async addPlatformToDatabase(platformData) {
+      try {
+        const platform = await Platforms.create({
+          ...platformData,
+        });
+        return platform;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    //!! Methode pour récupérer une plateforme
+    static async getPlatformToDatabase(platformData) {
+      try {
+        const platform = await Platforms.findOne({
+          where: {
+            codePlatforms: platformData.codePlatforms,
+          },
+        });
+        return platform;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    //!! Methode pour récupérer une plateforme par son id
+    static async getPlatformByIdToDatabase(platformData) {
+      try {
+        const platform = await Platforms.findOne({
+          where: {
+            id: platformData.id,
+          },
+        });
+        return platform;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    //!! Methode pour récupérer toutes les plateformes
+    static async getAllPlatformsToDatabase() {
+      try {
+        const platforms = await Platforms.findAll();
+        return platforms;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    //!! Methode pour récupérer toutes les plateformes d'un jeu
+    static async getAllPlatformsOfGameToDatabase(platformData) {
+      try {
+        const platforms = await Platforms.findAll({
+          where: {
+            platforms_id: platformData.platforms_id,
+          },
+        });
+        return platforms;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    //!! Methode pour récupérer toutes les plateformes d'une collection
+    static async getAllPlatformsOfCollectionToDatabase(platformData) {
+      try {
+        const platforms = await Platforms.findAll({
+          where: {
+            platforms_id: platformData.platforms_id,
+          },
+        });
+        return platforms;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    //!! Methode pour mettre à jour une plateforme
+    static async updatePlatformToDatabase(platformData) {
+      try {
+        const platform = await Platforms.update(
+          {
+            ...platformData,
+          },
+          {
+            where: {
+              platforms_id: platformData.platforms_id,
+            },
+          }
+        );
+        return platform;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    //!! Methode pour supprimer une plateforme
+    static async deletePlatformToDatabase(platformData) {
+      try {
+        const platform = await Platforms.destroy({
+          where: {
+            platforms_id: platformData.platforms_id,
+          },
+        });
+        return platform;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
     static associate(models) {
       // define association here
-
       // une plateforme appartient au minimum à aucun jeu et au maximum à un jeu (belongsToMany) 0:n
       models.Platforms.belongsToMany(models.Games, {
-        through: "GamesPlatforms",
-        foreignKey: "codePlatforms",
-        otherKey: "codeGames",
+        through: "Game_has_Platforms",
+        foreignKey: "platforms_id",
+        otherKey: "games_id",
         as: "games",
       });
       // une plateforme appartient au minimum à aucune collection et au maximum à plusieurs collections (belongsToMany) 0:n
       models.Platforms.belongsToMany(models.Collections, {
-        through: "GamesPlatforms",
-        foreignKey: "codePlatforms",
-        otherKey: "codeCollections",
+        through: "Game_has_Platforms",
+        foreignKey: "platforms_id",
+        otherKey: "collections_id",
         as: "collections",
       });
     }
   }
   Platforms.init(
     {
-      codePlatforms: DataTypes.INTEGER,
       title: DataTypes.STRING,
       price: DataTypes.DECIMAL,
       releaseDate: DataTypes.DATE,

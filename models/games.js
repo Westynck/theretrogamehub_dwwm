@@ -62,6 +62,66 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
+    //!! Methode pour récupérer tous les jeux d'une collection
+    static async getAllGamesFromCollectionToDatabase(collectionData) {
+      try {
+        const games = await Games.findAll({
+          where: {
+            title: collectionData.title,
+          },
+        });
+        return games;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    //!! Methode pour récupérer tous les jeux d'un éditeur
+    static async getAllGamesFromEditorToDatabase(editorData) {
+      try {
+        const games = await Games.findAll({
+          where: {
+            title: editorData.title,
+          },
+        });
+        return games;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    //!! Methode pour récupérer tous les jeux d'un développeur
+    static async getAllGamesFromDeveloperToDatabase(developerData) {
+      try {
+        const games = await Games.findAll({
+          where: {
+            title: developerData.title,
+          },
+        });
+        return games;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    //!! Methode pour récupérer tous les jeux d'un genre
+    static async getAllGamesFromGenreToDatabase(genreData) {
+      try {
+        const games = await Games.findAll({
+          where: {
+            title: genreData.title,
+          },
+        });
+        return games;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
     //!! Methode pour mettre à jour un jeu
     static async updateGameToDatabase(gameData) {
       try {
@@ -97,14 +157,14 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    //!! Methode pour récupérer un jeu par ses plateformes
-    static async findGameAllPlatforms(gameData) {
+    //!! Methode pour récupérer un jeu par ses  éditeurs, genres, développeurs
+    static async findGameAllCollections(gameData) {
       try {
         const game = await Games.findAll({
           where: {
             title: gameData.title,
           },
-          include: ["platforms", "collections", "editors", "genres"],
+          include: ["platforms", "editors", "genres", "developers"],
         });
         return game;
       } catch (error) {
@@ -165,11 +225,16 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: "codeGenres",
         as: "genres",
       });
+      model.Games.belongsToMany(models.Developers, {
+        through: "GamesDevelopers",
+        foreignKey: "codeGames",
+        otherKey: "codeDevelopers",
+        as: "developers",
+      });
     }
   }
   Games.init(
     {
-      codeGames: DataTypes.INTEGER,
       title: DataTypes.STRING,
       description: DataTypes.TEXT,
       price: DataTypes.DECIMAL,
