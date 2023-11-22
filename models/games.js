@@ -180,7 +180,7 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: "genres_id",
         as: "genres",
       });
-      model.Games.belongsToMany(models.Developers, {
+      models.Games.belongsToMany(models.Developers, {
         through: "GamesDevelopers",
         foreignKey: "games_id",
         otherKey: "developers_id",

@@ -2,17 +2,14 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const DB = require("./database");
-const {
-  auth,
-  admin,
-  member,
-  collection,
-  game,
-  editor,
-  developer,
-  genre,
-  platform,
-} = require("./routers");
+const adminRoutes = require("./routers/admin");
+const authRoutes = require("./routers/auth");
+const gameRoutes = require("./routers/game");
+const memberRoutes = require("./routers/member");
+const platformRoutes = require("./routers/platform");
+const genreRoutes = require("./routers/genre");
+const developerRoutes = require("./routers/developer");
+const editorRoutes = require("./routers/editor");
 
 const cors = require("cors");
 
@@ -20,15 +17,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(auth); // auth routes
-app.use(admin); // admin routes
-app.use(member); // member routes
-app.use(collection); // collection routes
-app.use(game); // game routes
-app.use(editor); // editor routes
-app.use(developer); // developer routes
-app.use(genre); // genre routes
-app.use(platform); // platform routes
+app.use(adminRoutes);
+app.use(authRoutes);
+app.use(gameRoutes);
+app.use(memberRoutes);
+app.use(platformRoutes);
+app.use(genreRoutes);
+app.use(developerRoutes);
+app.use(editorRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World! 👋 ");

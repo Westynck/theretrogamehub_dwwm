@@ -1,5 +1,6 @@
 const express = require("express");
 const editorsController = require("../controllers/editorsController");
+const router = express.Router();
 
 router.get("/editor", editorsController.findEditor); //cette route permet de récupérer un éditeur par son nom
 
