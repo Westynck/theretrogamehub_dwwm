@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const developer = await Developers.findOne({
           where: {
-            codeDevelopers: developerData.codeDevelopers,
+            name: developerData.name,
           },
         });
         return developer;
@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const games = await Games.findAll({
           where: {
-            developerId: developerData.id,
+            id: developerData.id,
           },
         });
         return games;
@@ -86,7 +86,7 @@ module.exports = (sequelize, DataTypes) => {
           },
           {
             where: {
-              codeDevelopers: developerData.codeDevelopers,
+              id: developerData.id,
             },
           }
         );
@@ -102,7 +102,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const developer = await Developers.destroy({
           where: {
-            codeDevelopers: developerData.codeDevelopers,
+            id: developerData.id,
           },
         });
         return developer;
@@ -117,8 +117,8 @@ module.exports = (sequelize, DataTypes) => {
       //
       Developers.belongsToMany(models.Games, {
         through: "GamesDevelopers",
-        foreignKey: "codeDevelopers",
-        otherKey: "codeGames",
+        foreignKey: "developers_id",
+        otherKey: "games_id",
         as: "games",
       });
     }

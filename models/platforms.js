@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const platform = await Platforms.findOne({
           where: {
-            codePlatforms: platformData.codePlatforms,
+            title: platformData.title,
           },
         });
         return platform;

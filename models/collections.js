@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const collection = await Collections.findOne({
           where: {
-            codeCollections: collectionData.codeCollections,
+            name: collectionData.name,
           },
         });
         return collection;
@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const collections = await Collections.findAll({
           where: {
-            codeMembers: memberData.codeMembers,
+            id: memberData.id,
           },
         });
         return collections;
@@ -75,7 +75,7 @@ module.exports = (sequelize, DataTypes) => {
           },
           {
             where: {
-              codeCollections: collectionData.codeCollections,
+              id: collectionData.id,
             },
           }
         );
@@ -91,7 +91,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const collection = await Collections.destroy({
           where: {
-            codeCollections: collectionData.codeCollections,
+            id: collectionData.id,
           },
         });
         return collection;
@@ -112,15 +112,15 @@ module.exports = (sequelize, DataTypes) => {
       //une Collection appartient au minimum à aucune plateforme et au maximum à plusieurs plateformes (belongsToMany) 0:n
       models.Collections.belongsToMany(models.Platforms, {
         through: "GamesPlatforms",
-        foreignKey: "codeCollections",
-        otherKey: "codePlatforms",
+        foreignKey: "collections_id",
+        otherKey: "platforms_id",
         as: "platforms",
       });
       //une Collection appartient au minimum à aucun jeu et au maximum à plusieurs jeux (belongsToMany) 0:n
       models.Collections.belongsToMany(models.Games, {
         through: "GamesPlatforms",
-        foreignKey: "codeCollections",
-        otherKey: "codeGames",
+        foreignKey: "collections_id",
+        otherKey: "games_id",
         as: "games",
       });
     }

@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const game = await Games.findOne({
           where: {
-            codeGames: gameData.codeGames,
+            title: gameData.title,
           },
         });
         return game;
@@ -77,51 +77,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    //!! Methode pour récupérer tous les jeux d'un éditeur
-    static async getAllGamesFromEditorToDatabase(editorData) {
-      try {
-        const games = await Games.findAll({
-          where: {
-            title: editorData.title,
-          },
-        });
-        return games;
-      } catch (error) {
-        console.error(error);
-        return false;
-      }
-    }
-
-    //!! Methode pour récupérer tous les jeux d'un développeur
-    static async getAllGamesFromDeveloperToDatabase(developerData) {
-      try {
-        const games = await Games.findAll({
-          where: {
-            title: developerData.title,
-          },
-        });
-        return games;
-      } catch (error) {
-        console.error(error);
-        return false;
-      }
-    }
-
-    //!! Methode pour récupérer tous les jeux d'un genre
-    static async getAllGamesFromGenreToDatabase(genreData) {
-      try {
-        const games = await Games.findAll({
-          where: {
-            title: genreData.title,
-          },
-        });
-        return games;
-      } catch (error) {
-        console.error(error);
-        return false;
-      }
-    }
-
     //!! Methode pour mettre à jour un jeu
     static async updateGameToDatabase(gameData) {
       try {
@@ -158,7 +113,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer un jeu par ses  éditeurs, genres, développeurs
-    static async findGameAllCollections(gameData) {
+    static async findGameByCategories(gameData) {
       try {
         const game = await Games.findAll({
           where: {
@@ -200,35 +155,35 @@ module.exports = (sequelize, DataTypes) => {
       // un jeu appartient au minimum à aucune plateforme et au maximum à plusieurs plateformes (belongsToMany) 0:n
       models.Games.belongsToMany(models.Platforms, {
         through: "GamesPlatforms",
-        foreignKey: "codeGames",
-        otherKey: "codePlatforms",
+        foreignKey: "games_id",
+        otherKey: "platforms_id",
         as: "platforms",
       });
       // un jeu appartient au minimum à aucune collection et au maximum à plusieurs collections (belongsToMany) 0:n
       models.Games.belongsToMany(models.Collections, {
         through: "GamesPlatforms",
-        foreignKey: "codeGames",
-        otherKey: "codeCollections",
+        foreignKey: "games_id",
+        otherKey: "collections_id",
         as: "collections",
       });
       // un jeu appartient au minimum à aucun éditeur et au maximum à plusieurs éditeurs (belongsToMany) 0:n
       models.Games.belongsToMany(models.Editors, {
         through: "GamesEditors",
-        foreignKey: "codeGames",
-        otherKey: "codeEditors",
+        foreignKey: "games_id",
+        otherKey: "editors_id",
         as: "editors",
       });
       // un jeu appartient au minimum à aucun genre et au maximum à plusieurs genres (belongsToMany) 0:n
       models.Games.belongsToMany(models.Genres, {
         through: "GamesGenres",
-        foreignKey: "codeGames",
-        otherKey: "codeGenres",
+        foreignKey: "games_id",
+        otherKey: "genres_id",
         as: "genres",
       });
       model.Games.belongsToMany(models.Developers, {
         through: "GamesDevelopers",
-        foreignKey: "codeGames",
-        otherKey: "codeDevelopers",
+        foreignKey: "games_id",
+        otherKey: "developers_id",
         as: "developers",
       });
     }

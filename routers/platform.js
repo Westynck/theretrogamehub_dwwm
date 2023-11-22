@@ -1,5 +1,5 @@
 const express = require("express");
-const platformsController = require("../controllers/platforms");
+const platformsController = require("../controllers/platformsController");
 const router = express.Router();
 
 router.get("/platform ", platformsController.findPlatform); //cette route permet de récupérer une plateforme par son nom

@@ -8,12 +8,28 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
+    //!! Methode pour connecter un membre
+    static async login(email, password) {
+      const member = await Members.findOne({
+        where: { email },
+      });
+
+      if (member) {
+        const isPasswordValid = await bcrypt.compare(password, member.password);
+
+        if (isPasswordValid) {
+          return member;
+        }
+      }
+      return false;
+    }
+
     //!! Methode pour créer un membre
     static async register(memberData) {
       const hashedPassword = await bcrypt.hash(memberData.password, 10);
 
       try {
-        const member = await Member.create({
+        const member = await Members.create({
           ...memberData,
           password: hashedPassword,
           confirmUseConditions: true,
@@ -57,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
     }
     //!! Methode pour confirmer un membre
     static async confirmAccount(activationToken) {
-      const member = await Member.findOne({
+      const member = await Members.findOne({
         where: { activationToken },
       });
 
@@ -69,25 +85,10 @@ module.exports = (sequelize, DataTypes) => {
 
       return member;
     }
-    //!! Methode pour connecter un membre
-    static async login(email, password) {
-      const member = await Member.findOne({
-        where: { email },
-      });
-
-      if (member) {
-        const isPasswordValid = await bcrypt.compare(password, member.password);
-
-        if (isPasswordValid) {
-          return member;
-        }
-      }
-      return false;
-    }
 
     //!! Methode pour récupérer les informations d'un membre
     static async getMemberDetails(id) {
-      const member = await Member.findByPk(id, {
+      const member = await Members.findByPk(id, {
         attributes: {
           exclude: [
             "password",
@@ -105,8 +106,9 @@ module.exports = (sequelize, DataTypes) => {
       return member;
     }
 
+    //!! Methode pour mettre à jour le profil d'un membre
     static async updateProfile(id, memberData) {
-      const member = await Member.findByPk(id);
+      const member = await Members.findByPk(id);
       if (!member) {
         throw new Error("Member not found");
       }
@@ -128,7 +130,7 @@ module.exports = (sequelize, DataTypes) => {
 
     //!! Methode pour récupérer tous les membres
     static async getAllMembers() {
-      const members = await Member.findAll({
+      const members = await Members.findAll({
         attributes: {
           exclude: [
             "password",
@@ -145,7 +147,7 @@ module.exports = (sequelize, DataTypes) => {
 
     //!! Methode pour récupérer un membre par son id
     static async getMemberById(id) {
-      const member = await Member.findByPk(id, {
+      const member = await Members.findByPk(id, {
         attributes: {
           exclude: [
             "password",
@@ -165,7 +167,7 @@ module.exports = (sequelize, DataTypes) => {
 
     //!! Methode pour récupérer un membre par son email
     static async getMemberByNickname(nickname) {
-      const member = await Member.findOne({
+      const member = await Members.findOne({
         where: { nickname },
         attributes: {
           exclude: [
@@ -186,7 +188,7 @@ module.exports = (sequelize, DataTypes) => {
 
     //!! Methode pour bloquer un membre
     static async blockMember(id) {
-      const member = await Member.findByPk(id);
+      const member = await Members.findByPk(id);
       if (!member) {
         throw new Error("Member not found");
       }
@@ -203,7 +205,7 @@ module.exports = (sequelize, DataTypes) => {
 
     //!! Methode pour débloquer un membre
     static async unblockMember(id) {
-      const member = await Member.findByPk(id);
+      const member = await Members.findByPk(id);
       if (!member) {
         throw new Error("Member not found");
       }
@@ -220,7 +222,7 @@ module.exports = (sequelize, DataTypes) => {
 
     //!! Methode pour supprimer un membre
     static async deleteMember(id) {
-      const member = await Member.findByPk(id);
+      const member = await Members.findByPk(id);
       if (!member) {
         throw new Error("Member not found");
       }

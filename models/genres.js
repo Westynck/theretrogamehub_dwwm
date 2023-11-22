@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const genre = await Genres.findOne({
           where: {
-            codeGenres: genreData.codeGenres,
+            name: genreData.name,
           },
         });
         return genre;
@@ -69,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
             {
               model: Games,
               where: {
-                codeGames: gameData.codeGames,
+                games_id: gameData.games_id,
               },
             },
           ],

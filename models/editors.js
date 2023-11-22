@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const editor = await Editors.findOne({
           where: {
-            codeEditors: editorData.codeEditors,
+            name: editorData.name,
           },
         });
         return editor;
@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const editor = await Editors.findOne({
           where: {
-            codeEditors: editorData.codeEditors,
+            id: editorData.id,
           },
           include: "games",
         });
@@ -87,7 +87,7 @@ module.exports = (sequelize, DataTypes) => {
           },
           {
             where: {
-              codeEditors: editorData.codeEditors,
+              id: editorData.id,
             },
           }
         );
@@ -103,7 +103,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const editor = await Editors.destroy({
           where: {
-            codeEditors: editorData.codeEditors,
+            id: editorData.id,
           },
         });
         return editor;
@@ -118,8 +118,8 @@ module.exports = (sequelize, DataTypes) => {
       // un éditeur appartient au minimum à aucun jeu et au maximum à plusieurs jeux (belongsToMany) 0:n
       models.Editors.belongsToMany(models.Games, {
         through: "GamesEditors",
-        foreignKey: "codeEditors",
-        otherKey: "codeGames",
+        foreignKey: "editors_id",
+        otherKey: "games_id",
         as: "games",
       });
     }
