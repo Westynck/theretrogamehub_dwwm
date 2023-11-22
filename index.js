@@ -2,14 +2,33 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const DB = require("./database");
-// const router = require("./routers/routers");
+const {
+  auth,
+  admin,
+  member,
+  collection,
+  game,
+  editor,
+  developer,
+  genre,
+  platform,
+} = require("./routers");
+
 const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(router);
+app.use(auth); // auth routes
+app.use(admin); // admin routes
+app.use(member); // member routes
+app.use(collection); // collection routes
+app.use(game); // game routes
+app.use(editor); // editor routes
+app.use(developer); // developer routes
+app.use(genre); // genre routes
+app.use(platform); // platform routes
 
 app.get("/", (req, res) => {
   res.send("Hello World! 👋 ");
