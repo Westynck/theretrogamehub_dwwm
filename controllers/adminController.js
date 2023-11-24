@@ -1,4 +1,9 @@
-const { Members, Games, Editors, Developers, Platforms } = require("../models");
+const { Games } = require("../models");
+const { Platforms } = require("../models");
+const { Members } = require("../models");
+const { Editors } = require("../models");
+const { Developers } = require("../models");
+const { Genres } = require("../models");
 
 const adminController = {
   getAllGames: async (req, res) => {
@@ -31,7 +36,7 @@ const adminController = {
   createGame: async (req, res) => {
     const gameData = req.body;
     try {
-      const game = await Games.createGame(gameData);
+      const game = await Games.addGameToDatabase(gameData);
       if (!game) {
         res.status(400).json({ error: "Failed to create game" });
       } else {
@@ -46,7 +51,7 @@ const adminController = {
     const { id } = req.params;
     const gameData = req.body;
     try {
-      const game = await Games.updateGame(id, gameData);
+      const game = await Games.updateGameToDatabase(id, gameData);
       if (!game) {
         res.status(400).json({ error: "Failed to update game" });
       } else {
@@ -60,7 +65,7 @@ const adminController = {
   deleteGame: async (req, res) => {
     const { id } = req.params;
     try {
-      const game = await Games.deleteGame(id);
+      const game = await Games.deleteGameToDatabase(id);
       if (!game) {
         res.status(400).json({ error: "Failed to delete game" });
       } else {
@@ -101,7 +106,7 @@ const adminController = {
   createPlatform: async (req, res) => {
     const platformData = req.body;
     try {
-      const platform = await Platforms.createPlatform(platformData);
+      const platform = await Platforms.addPlatformToDatabase(platformData);
       if (!platform) {
         res.status(400).json({ error: "Failed to create platform" });
       } else {

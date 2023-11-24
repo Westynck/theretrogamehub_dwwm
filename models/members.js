@@ -1,4 +1,9 @@
 "use strict";
+
+const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
+
+const crypto = require("crypto");
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Members extends Model {
@@ -250,7 +255,7 @@ module.exports = (sequelize, DataTypes) => {
   Members.init(
     {
       nickname: DataTypes.STRING,
-      mail: DataTypes.STRING,
+      email: DataTypes.STRING,
       password: DataTypes.STRING,
       confirmUseConditions: DataTypes.BOOLEAN,
       isActive: DataTypes.BOOLEAN,

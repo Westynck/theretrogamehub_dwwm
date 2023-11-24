@@ -3,7 +3,7 @@ const { Games } = require("../models");
 const gamesController = {
   getAllGames: async (req, res) => {
     try {
-      const games = await Games.getAllGamesToDatabase();
+      const games = await Games.getAllGames();
       res.json(games);
     } catch (error) {
       console.error(error);
@@ -47,7 +47,7 @@ const gamesController = {
   getGameById: async (req, res) => {
     const { id } = req.params;
     try {
-      const game = await Games.getGameByIdToDatabase(id);
+      const game = await Games.getGameById(id);
       if (!game) {
         res.status(400).json({ error: "Game not found" });
       } else {

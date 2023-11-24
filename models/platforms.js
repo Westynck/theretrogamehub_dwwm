@@ -37,13 +37,10 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer une plateforme par son id
-    static async getPlatformByIdToDatabase(platformData) {
+    static async getPlatformById(id) {
       try {
-        const platform = await Platforms.findOne({
-          where: {
-            id: platformData.id,
-          },
-        });
+        const platform = await Platforms.findByPk(id);
+
         return platform;
       } catch (error) {
         console.error(error);
@@ -52,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer toutes les plateformes
-    static async getAllPlatformsToDatabase() {
+    static async getAllPlatforms() {
       try {
         const platforms = await Platforms.findAll();
         return platforms;
@@ -113,13 +110,9 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour supprimer une plateforme
-    static async deletePlatformToDatabase(platformData) {
+    static async deletePlatform(id) {
       try {
-        const platform = await Platforms.destroy({
-          where: {
-            platforms_id: platformData.platforms_id,
-          },
-        });
+        const platform = await Platforms.destroy({ where: { id: id } });
         return platform;
       } catch (error) {
         console.error(error);

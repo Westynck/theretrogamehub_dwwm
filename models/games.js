@@ -37,22 +37,18 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer un jeu par son id
-    static async getGameByIdToDatabase(gameData) {
+    static async getGameById(id) {
       try {
-        const game = await Games.findOne({
-          where: {
-            id: gameData.id,
-          },
-        });
+        const game = await Games.findByPk(id);
         return game;
       } catch (error) {
-        console.error(error);
+        console.error("Erreur lors de la récupération du jeu:", error);
         return false;
       }
     }
 
     //!! Methode pour récupérer tous les jeux
-    static async getAllGamesToDatabase() {
+    static async getAllGames() {
       try {
         const games = await Games.findAll();
         return games;
@@ -78,19 +74,13 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour mettre à jour un jeu
-    static async updateGameToDatabase(gameData) {
+    static async updateGameToDatabase(id, gameData) {
       try {
         const game = await Games.update(
-          {
-            ...gameData,
-          },
-          {
-            where: {
-              codeGames: gameData.codeGames,
-            },
-          }
+          { ...gameData },
+          { where: { id } } // Utiliser 'id' dans la clause WHERE
         );
-        return game;
+        return game; // Cela renverra le nombre de lignes affectées
       } catch (error) {
         console.error(error);
         return false;
@@ -98,12 +88,10 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour supprimer un jeu
-    static async deleteGameToDatabase(gameData) {
+    static async deleteGameToDatabase(id) {
       try {
         const game = await Games.destroy({
-          where: {
-            codeGames: gameData.codeGames,
-          },
+          where: { id },
         });
         return game;
       } catch (error) {

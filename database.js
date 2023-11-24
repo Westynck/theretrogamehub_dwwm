@@ -10,7 +10,8 @@ const sequelize = new Sequelize(
     define: {
       underscored: true,
     },
-    logging: false,
+
+    logging: console.log,
   }
 );
 

@@ -127,9 +127,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Collections.init(
     {
-      codeCollections: DataTypes.INTEGER,
+      collection_id: DataTypes.INTEGER,
       name: DataTypes.STRING,
-      codeMembers: DataTypes.INTEGER,
+      members_id: DataTypes.INTEGER,
     },
     {
       sequelize,

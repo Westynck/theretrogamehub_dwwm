@@ -1,10 +1,12 @@
 //on imprte les modules dont on a besoin
 const express = require("express");
 const collectionsController = require("../controllers/collectionsController");
-const platformsController = require("../controllers/platforms");
-const gamesContoller = require("../controllers/gamesController");
-
 const router = express.Router();
+
+// on impoe le middleware d'authentification
+const authenticate = require("../middleware/authenticate");
+
+//on place le middleware sur toutes les routes
 
 router.post("/collection/add/:id", collectionsController.addControllerToMember); //cette route permet d'ajouter une collection à un membre
 
