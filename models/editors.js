@@ -37,13 +37,9 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer un éditeur par son id
-    static async getEditorByIdToDatabase(editorData) {
+    static async getEditorByIdToDatabase(id) {
       try {
-        const editor = await Editors.findOne({
-          where: {
-            id: editorData.id,
-          },
-        });
+        const editor = await Editors.findByPk(id);
         return editor;
       } catch (error) {
         console.error(error);
@@ -52,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer tous les éditeurs
-    static async getAllEditorsToDatabase() {
+    static async getAllEditors() {
       try {
         const editors = await Editors.findAll();
         return editors;
@@ -79,7 +75,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour mettre à jour un éditeur
-    static async updateEditorToDatabase(editorData) {
+    static async updateEditorToDatabase(id, editorData) {
       try {
         const editor = await Editors.update(
           {
@@ -87,7 +83,7 @@ module.exports = (sequelize, DataTypes) => {
           },
           {
             where: {
-              id: editorData.id,
+              id,
             },
           }
         );
@@ -99,11 +95,11 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour supprimer un éditeur
-    static async deleteEditorToDatabase(editorData) {
+    static async deleteEditor(id) {
       try {
         const editor = await Editors.destroy({
           where: {
-            id: editorData.id,
+            id,
           },
         });
         return editor;

@@ -30,11 +30,14 @@ router.get("/admin/members", adminController.getAllMembers); //cette route perme
 
 router.get("/admin/members/:id", adminController.memberDetails); //cette route permet de récupérer un membre par son id
 
-router.get("/admin/members/:nickname", adminController.getMemberByNickname); //cette route permet de récupérer un membre par son nickname
+router.get(
+  "/admin/members/nickname/:nickname",
+  adminController.getMemberByNickname
+); //cette route permet de récupérer un membre par son nickname
 
-router.post("/admin/members", adminController.blockMember); //cette route permet de bloquer un membre
+router.post("/admin/members/block/:id", adminController.blockMember); //cette route permet de bloquer un membre
 
-router.post("/admin/members", adminController.unblockMember); //cette route permet de débloquer un membre
+router.post("/admin/members/unblock/:id", adminController.unblockMember); //cette route permet de débloquer un membre
 
 router.delete("/admin/members/:id", adminController.deleteMember); //cette route permet de supprimer un membre
 

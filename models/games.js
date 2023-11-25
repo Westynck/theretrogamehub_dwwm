@@ -76,11 +76,8 @@ module.exports = (sequelize, DataTypes) => {
     //!! Methode pour mettre à jour un jeu
     static async updateGameToDatabase(id, gameData) {
       try {
-        const game = await Games.update(
-          { ...gameData },
-          { where: { id } } // Utiliser 'id' dans la clause WHERE
-        );
-        return game; // Cela renverra le nombre de lignes affectées
+        const game = await Games.update({ ...gameData }, { where: { id } });
+        return game;
       } catch (error) {
         console.error(error);
         return false;

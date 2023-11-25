@@ -22,7 +22,7 @@ const adminController = {
   getGameById: async (req, res) => {
     const { id } = req.params;
     try {
-      const game = await Games.getGameById(id);
+      const game = await Games.getGameByIdzq(id);
       if (!game) {
         res.status(400).json({ error: "Game not found" });
       } else {
@@ -259,7 +259,7 @@ const adminController = {
   getEditorById: async (req, res) => {
     const { id } = req.params;
     try {
-      const editor = await Editors.getEditorById(id);
+      const editor = await Editors.getEditorByIdToDatabase(id);
       if (!editor) {
         res.status(400).json({ error: "Editor not found" });
       } else {
@@ -273,7 +273,7 @@ const adminController = {
   createEditor: async (req, res) => {
     const editorData = req.body;
     try {
-      const editor = await Editors.createEditor(editorData);
+      const editor = await Editors.addEditorToDatabase(editorData);
       if (!editor) {
         res.status(400).json({ error: "Failed to create editor" });
       } else {
@@ -288,7 +288,7 @@ const adminController = {
     const { id } = req.params;
     const editorData = req.body;
     try {
-      const editor = await Editors.updateEditor(id, editorData);
+      const editor = await Editors.updateEditorToDatabase(id, editorData);
       if (!editor) {
         res.status(400).json({ error: "Failed to update editor" });
       } else {
@@ -343,7 +343,7 @@ const adminController = {
   createDeveloper: async (req, res) => {
     const developerData = req.body;
     try {
-      const developer = await Developers.createDeveloper(developerData);
+      const developer = await Developers.addDeveloperToDatabase(developerData);
       if (!developer) {
         res.status(400).json({ error: "Failed to create developer" });
       } else {
@@ -413,7 +413,7 @@ const adminController = {
   createGenre: async (req, res) => {
     const genreData = req.body;
     try {
-      const genre = await Genres.createGenre(genreData);
+      const genre = await Genres.addGenreToDatabase(genreData);
       if (!genre) {
         res.status(400).json({ error: "Failed to create genre" });
       } else {
@@ -428,7 +428,7 @@ const adminController = {
     const { id } = req.params;
     const genreData = req.body;
     try {
-      const genre = await Genres.updateGenre(id, genreData);
+      const genre = await Genres.updateGenreToDatabase(id, genreData);
       if (!genre) {
         res.status(400).json({ error: "Failed to update genre" });
       } else {
@@ -442,7 +442,7 @@ const adminController = {
   deleteGenre: async (req, res) => {
     const { id } = req.params;
     try {
-      const genre = await Genres.deleteGenre(id);
+      const genre = await Genres.deleteGenreToDatabase(id);
       if (!genre) {
         res.status(400).json({ error: "Failed to delete genre" });
       } else {

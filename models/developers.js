@@ -37,13 +37,9 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer un développeur par son id
-    static async getDeveloperByIdToDatabase(developerData) {
+    static async getDeveloperById(id) {
       try {
-        const developer = await Developers.findOne({
-          where: {
-            id: developerData.id,
-          },
-        });
+        const developer = await Developers.findByPk(id);
         return developer;
       } catch (error) {
         console.error(error);
@@ -52,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer tous les développeurs
-    static async getAllDevelopersToDatabase() {
+    static async getAllDevelopers() {
       try {
         const developers = await Developers.findAll();
         return developers;
@@ -78,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour mettre à jour un développeur
-    static async updateDeveloperToDatabase(developerData) {
+    static async updateDeveloper(id, developerData) {
       try {
         const developer = await Developers.update(
           {
@@ -86,7 +82,7 @@ module.exports = (sequelize, DataTypes) => {
           },
           {
             where: {
-              id: developerData.id,
+              id,
             },
           }
         );
@@ -98,11 +94,11 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour supprimer un développeur
-    static async deleteDeveloperToDatabase(developerData) {
+    static async deleteDeveloper(id) {
       try {
         const developer = await Developers.destroy({
           where: {
-            id: developerData.id,
+            id,
           },
         });
         return developer;

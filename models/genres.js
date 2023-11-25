@@ -36,11 +36,11 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer un genre par son id
-    static async getGenreByIdToDatabase(genreData) {
+    static async getGenreById(id) {
       try {
         const genre = await Genres.findOne({
           where: {
-            id: genreData.id,
+            id: id,
           },
         });
         return genre;
@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer tous les genres
-    static async getAllGenresToDatabase() {
+    static async getAllGenres() {
       try {
         const genres = await Genres.findAll();
         return genres;
@@ -102,18 +102,9 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour mettre à jour un genre
-    static async updateGenreToDatabase(genreData) {
+    static async updateGenreToDatabase(id, genreData) {
       try {
-        const genre = await Genres.update(
-          {
-            ...genreData,
-          },
-          {
-            where: {
-              genres_id: genreData.genres_id,
-            },
-          }
-        );
+        const genre = await Genres.update({ ...genreData }, { where: { id } });
         return genre;
       } catch (error) {
         console.error(error);
@@ -122,11 +113,11 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour supprimer un genre
-    static async deleteGenreToDatabase(genreData) {
+    static async deleteGenreToDatabase(id) {
       try {
         const genre = await Genres.destroy({
           where: {
-            genres_id: genreData.genres_id,
+            id,
           },
         });
         return genre;

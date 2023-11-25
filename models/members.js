@@ -40,10 +40,13 @@ module.exports = (sequelize, DataTypes) => {
           confirmUseConditions: true,
           activationToken: crypto.randomBytes(20).toString("hex"),
         });
+        console.log(
+          "🚀 ~ file: members.js:43 ~ Members ~ register ~ member:",
+          member
+        );
 
         if (member) {
           const confimationLink = `${process.env.BASE_URL}/confirm/${member.activationToken}`;
-
           const transporter = nodemailer.createTransport({
             host: "smtp.ethereal.email",
             port: 587,
@@ -84,6 +87,7 @@ module.exports = (sequelize, DataTypes) => {
 
       if (member) {
         member.activationToken = null;
+
         member.isActive = true;
         await member.save();
       }
@@ -98,6 +102,7 @@ module.exports = (sequelize, DataTypes) => {
           exclude: [
             "password",
             "activationToken",
+
             "updatedAt",
             "createdAt",
             "isActive",
@@ -140,6 +145,7 @@ module.exports = (sequelize, DataTypes) => {
           exclude: [
             "password",
             "activationToken",
+
             "updatedAt",
             "createdAt",
             "isActive",
@@ -157,6 +163,7 @@ module.exports = (sequelize, DataTypes) => {
           exclude: [
             "password",
             "activationToken",
+
             "updatedAt",
             "createdAt",
             "isActive",
@@ -170,10 +177,11 @@ module.exports = (sequelize, DataTypes) => {
       return member;
     }
 
-    //!! Methode pour récupérer un membre par son email
+    //!! Methode pour récupérer un membre par son nickname
     static async getMemberByNickname(nickname) {
+      console.log(nickname);
       const member = await Members.findOne({
-        where: { nickname },
+        where: { nickname: nickname },
         attributes: {
           exclude: [
             "password",
@@ -185,9 +193,7 @@ module.exports = (sequelize, DataTypes) => {
           ],
         },
       });
-      if (!member) {
-        throw new Error("Member not found");
-      }
+
       return member;
     }
 
