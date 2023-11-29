@@ -58,21 +58,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    //!! Methode pour récupérer tous les jeux d'une collection
-    static async getAllGamesFromCollectionToDatabase(collectionData) {
-      try {
-        const games = await Games.findAll({
-          where: {
-            title: collectionData.title,
-          },
-        });
-        return games;
-      } catch (error) {
-        console.error(error);
-        return false;
-      }
-    }
-
     //!! Methode pour mettre à jour un jeu
     static async updateGameToDatabase(id, gameData) {
       try {
@@ -98,11 +83,11 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer un jeu par ses  éditeurs, genres, développeurs
-    static async findGameByCategories(gameData) {
+    static async findGameByCategories(name) {
       try {
         const game = await Games.findAll({
           where: {
-            title: gameData.title,
+            name,
           },
           include: ["platforms", "editors", "genres", "developers"],
         });
@@ -139,34 +124,34 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       // un jeu appartient au minimum à aucune plateforme et au maximum à plusieurs plateformes (belongsToMany) 0:n
       models.Games.belongsToMany(models.Platforms, {
-        through: "GamesPlatforms",
+        through: "Games_Platforms",
         foreignKey: "games_id",
         otherKey: "platforms_id",
         as: "platforms",
       });
       // un jeu appartient au minimum à aucune collection et au maximum à plusieurs collections (belongsToMany) 0:n
       models.Games.belongsToMany(models.Collections, {
-        through: "GamesPlatforms",
+        through: "Games_Collections",
         foreignKey: "games_id",
         otherKey: "collections_id",
         as: "collections",
       });
       // un jeu appartient au minimum à aucun éditeur et au maximum à plusieurs éditeurs (belongsToMany) 0:n
       models.Games.belongsToMany(models.Editors, {
-        through: "GamesEditors",
+        through: "Games_Editors",
         foreignKey: "games_id",
         otherKey: "editors_id",
         as: "editors",
       });
       // un jeu appartient au minimum à aucun genre et au maximum à plusieurs genres (belongsToMany) 0:n
       models.Games.belongsToMany(models.Genres, {
-        through: "GamesGenres",
+        through: "Games_Genres",
         foreignKey: "games_id",
         otherKey: "genres_id",
         as: "genres",
       });
       models.Games.belongsToMany(models.Developers, {
-        through: "GamesDevelopers",
+        through: "Games_Developers",
         foreignKey: "games_id",
         otherKey: "developers_id",
         as: "developers",

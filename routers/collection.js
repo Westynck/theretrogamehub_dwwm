@@ -3,12 +3,14 @@ const express = require("express");
 const collectionsController = require("../controllers/collectionsController");
 const router = express.Router();
 
-// on impoe le middleware d'authentification
-const authenticate = require("../middleware/authenticate");
+router.post("/collection/add/:memberId", collectionsController.addCollection); //cette route permet d'ajouter une collection à un membre
 
-//on place le middleware sur toutes les routes
+router.get(
+  "/collection/:memberId",
+  collectionsController.getAllCollectionsFromMember
+); //cette route permet de récupérer toutes les collections d'un membre
 
-router.post("/collection/add/:id", collectionsController.addControllerToMember); //cette route permet d'ajouter une collection à un membre
+router.post("/collection/edit/:id", collectionsController.updateCollectionName); //cette route permet de modifier une collection
 
 router.post(
   "/collection/add/game/:id",
@@ -21,15 +23,13 @@ router.delete(
 ); //cette route permet de supprimer un jeu d'une collection
 
 router.post(
-  //cette route permet d'ajouter une plateforme à une collection
   "/collection/add/platform/:id",
   collectionsController.addPlatformToCollection
-);
+); //cette route permet d'ajouter une plateforme à une collection
 
 router.delete(
-  //cette route permet de supprimer une plateforme d'une collection
   "/collection/remove/platform/:id",
   collectionsController.removePlatformFromCollection
-);
+); //cette route permet de supprimer une plateforme d'une collection
 
 module.exports = router;

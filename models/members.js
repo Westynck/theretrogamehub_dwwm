@@ -102,7 +102,6 @@ module.exports = (sequelize, DataTypes) => {
           exclude: [
             "password",
             "activationToken",
-
             "updatedAt",
             "createdAt",
             "isActive",
@@ -145,7 +144,6 @@ module.exports = (sequelize, DataTypes) => {
           exclude: [
             "password",
             "activationToken",
-
             "updatedAt",
             "createdAt",
             "isActive",
@@ -163,7 +161,6 @@ module.exports = (sequelize, DataTypes) => {
           exclude: [
             "password",
             "activationToken",
-
             "updatedAt",
             "createdAt",
             "isActive",

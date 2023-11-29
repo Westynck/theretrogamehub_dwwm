@@ -4,7 +4,7 @@ const developersController = {
   findDeveloper: async (req, res) => {
     const { name } = req.params;
     try {
-      const developer = await Developers.getDeveloperToDatabase(name);
+      const developer = await Developers.getDeveloper(name);
       res.json(developer);
     } catch (error) {
       console.error(error);
@@ -14,7 +14,7 @@ const developersController = {
 
   getAllDevelopers: async (req, res) => {
     try {
-      const developers = await Developers.getAllDevelopersToDatabase();
+      const developers = await Developers.getAllDevelopers();
       res.json(developers);
     } catch (error) {
       console.error(error);
@@ -25,7 +25,7 @@ const developersController = {
   getDeveloperById: async (req, res) => {
     const { id } = req.params;
     try {
-      const developer = await Developers.getDeveloperByIdToDatabase(id);
+      const developer = await Developers.getDeveloperById(id);
       if (!developer) {
         res.status(400).json({ error: "Developer not found" });
       } else {

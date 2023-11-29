@@ -131,7 +131,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       // un genre appartient au minimum à aucun jeu et au maximum à plusieurs jeux (belongsToMany) 0:n
       models.Genres.belongsToMany(models.Games, {
-        through: "Game_has_Genres",
+        through: "gamesGenres",
         foreignKey: "genres_id",
         otherKey: "games_id",
         as: "games",

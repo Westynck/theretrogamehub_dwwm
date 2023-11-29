@@ -124,14 +124,14 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       // une plateforme appartient au minimum à aucun jeu et au maximum à un jeu (belongsToMany) 0:n
       models.Platforms.belongsToMany(models.Games, {
-        through: "Game_has_Platforms",
+        through: "GamesPlatforms",
         foreignKey: "platforms_id",
         otherKey: "games_id",
         as: "games",
       });
       // une plateforme appartient au minimum à aucune collection et au maximum à plusieurs collections (belongsToMany) 0:n
       models.Platforms.belongsToMany(models.Collections, {
-        through: "Game_has_Platforms",
+        through: "platformsCollections",
         foreignKey: "platforms_id",
         otherKey: "collections_id",
         as: "collections",

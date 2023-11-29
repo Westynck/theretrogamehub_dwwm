@@ -22,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer un développeur
-    static async getDeveloperToDatabase(developerData) {
+    static async getDeveloper(name) {
       try {
         const developer = await Developers.findOne({
           where: {
-            name: developerData.name,
+            name,
           },
         });
         return developer;
@@ -52,21 +52,6 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const developers = await Developers.findAll();
         return developers;
-      } catch (error) {
-        console.error(error);
-        return false;
-      }
-    }
-
-    //!! Methode pour récupérer tous les developpeurs d'un jeu
-    static async getAllGamesFromDeveloperToDatabase(developerData) {
-      try {
-        const games = await Games.findAll({
-          where: {
-            id: developerData.id,
-          },
-        });
-        return games;
       } catch (error) {
         console.error(error);
         return false;

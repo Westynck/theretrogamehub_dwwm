@@ -10,6 +10,7 @@ const platformRoutes = require("./routers/platform");
 const genreRoutes = require("./routers/genre");
 const developerRoutes = require("./routers/developer");
 const editorRoutes = require("./routers/editor");
+const collectionRoutes = require("./routers/collection");
 
 const cors = require("cors");
 
@@ -25,6 +26,7 @@ app.use(platformRoutes);
 app.use(genreRoutes);
 app.use(developerRoutes);
 app.use(editorRoutes);
+app.use(collectionRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World! 👋 ");

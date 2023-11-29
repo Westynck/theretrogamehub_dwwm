@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "dev": "nodemon index.js",
+    "seed:all": "npx sequelize-cli db:seed:all",
     "migrate:up": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
     "migrate:undo:all": "npx sequelize-cli db:migrate:undo:all"
@@ -27,5 +28,8 @@
     "nodemailer": "^6.9.7",
     "pg": "^8.11.3",
     "sequelize": "^6.34.0"
+  },
+  "directories": {
+    "test": "test"
   }
 }
