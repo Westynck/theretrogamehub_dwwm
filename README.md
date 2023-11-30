@@ -1,4 +1,4 @@
-# Nom du projet : The Retro Game Hub-backend_DWWM
+# Nom du projet : The RetroGameHub-backend_DWWM
 
 ## Description
 
