@@ -20,7 +20,7 @@ The Retro Game Hub est une application conçue pour permettre aux amateurs de je
 ## Déploiement
 
 - **Local** : L'application s'exécute localement sur `http://localhost:8000`.
-- **Production** : (Si applicable) Liens vers les versions déployées ou les instructions de déploiement.
+- **Production** : se positionner sur la branch 'development'
 
 ## Démarrage rapide
 
