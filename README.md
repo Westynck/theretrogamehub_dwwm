@@ -28,10 +28,9 @@ Pour exécuter le projet en local, suivez ces étapes :
 
 1. Clonez le dépôt :
 
-
-   ```bash
-   git clone https://example.com/your-repo.git
-   ```
+ ```bash
+ git clone https://example.com/your-repo.git
+ ```
 
 2. Installez les dépendances :
 
