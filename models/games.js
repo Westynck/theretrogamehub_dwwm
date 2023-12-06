@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class Games extends Model {
     /**
@@ -37,9 +38,9 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour récupérer un jeu par son id
-    static async getGameById(id) {
+    static async getGameById(gameId) {
       try {
-        const game = await Games.findByPk(id);
+        const game = await Games.findByPk(gameId);
         return game;
       } catch (error) {
         console.error("Erreur lors de la récupération du jeu:", error);
@@ -91,28 +92,6 @@ module.exports = (sequelize, DataTypes) => {
           },
           include: ["platforms", "editors", "genres", "developers"],
         });
-        return game;
-      } catch (error) {
-        console.error(error);
-        return false;
-      }
-    }
-
-    //!! Methode pour ajouter un jeu à la collection
-    static async addGameToCollection(gameData) {
-      try {
-        const game = await Games.findByPk(gameData.id);
-        return game;
-      } catch (error) {
-        console.error(error);
-        return false;
-      }
-    }
-
-    //!! Methode pour retirer un jeu de la collection
-    static async removeGameToCollection(gameData) {
-      try {
-        const game = await Games.findbyPk(gameData.id);
         return game;
       } catch (error) {
         console.error(error);

@@ -17,6 +17,20 @@ const collectionsController = {
     }
   },
 
+  getOneCollectionFromMember: async (req, res) => {
+    const { memberId, collectionId } = req.params;
+    try {
+      const collection = await Collections.getOneCollectionFromMember(
+        memberId,
+        collectionId
+      );
+      res.json(collection);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error.message);
+    }
+  },
+
   addCollection: async (req, res) => {
     const { memberId } = req.params;
     const collectionData = req.body;
@@ -54,66 +68,15 @@ const collectionsController = {
     }
   },
 
-  addGameToCollection: async (req, res) => {
+  deleteCollection: async (req, res) => {
     const { id } = req.params;
-    const gameData = req.body;
-    try {
-      const newGame = await Collections.addGameToCollection(id, gameData);
-      if (newGame) {
-        res.status(200).json(newGame);
-      } else {
-        res.status(400).json({ error: "Failed to add game" });
-      }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
 
-  removeGameFromCollection: async (req, res) => {
-    const { id } = req.params;
-    const gameData = req.body;
     try {
-      const game = await Collections.removeGameFromCollection(id, gameData);
-      if (game) {
-        res.status(200).json(game);
+      const collection = await Collections.deleteCollection(id);
+      if (collection) {
+        res.status(200).json(collection);
       } else {
-        res.status(400).json({ error: "Failed to remove game" });
-      }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
-
-  addPlatformToCollection: async (req, res) => {
-    const { id } = req.params;
-    const platformData = req.body;
-    try {
-      const newPlatform = await Collections.addPlatformToCollection(
-        id,
-        platformData
-      );
-      if (newPlatform) {
-        res.status(200).json(newPlatform);
-      } else {
-        res.status(400).json({ error: "Failed to add platform" });
-      }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
-
-  removePlatformFromCollection: async (req, res) => {
-    const { id } = req.params;
-    const platformData = req.body;
-    try {
-      const platform = await Collections.removePlatformFromCollection(
-        id,
-        platformData
-      );
-      if (platform) {
-        res.status(200).json(platform);
-      } else {
-        res.status(400).json({ error: "Failed to remove platform" });
+        res.status(400).json({ error: " Echec de la suppression" });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });

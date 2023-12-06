@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const members = require("./members");
 module.exports = (sequelize, DataTypes) => {
   class Collections extends Model {
     /**
@@ -15,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
             MemberId,
           },
         });
+
         return collections;
       } catch (error) {
         console.error(error);
@@ -37,17 +39,29 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    //!! Methode pour ajouter un jeu à une collection
-    static async addGameToCollection(id, gameData) {
+    //!! Méthode pour vérifier si une collection existe
+    static async checkCollection(collectionId) {
+      try {
+        const collection = await Collections.findByPk(collectionId);
+        return collection;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    //!! Methode pour récupérer une collection d'un membre
+    static async getOneCollectionFromMember(MemberId, collectionId) {
       try {
         const collection = await Collections.findOne({
           where: {
-            id: id,
+            id: collectionId,
+            MemberId,
           },
-          include: ["games"],
+
+          include: ["games", "platforms"],
         });
-        const game = await collection.addGames(gameData.gameId);
-        return game;
+        return collection;
       } catch (error) {
         console.error(error);
         return false;
@@ -55,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //!! Methode pour supprimer un jeu d'une collection
-    static async removeGameFromCollection(id, gameData) {
+    static async removeGameFromCollection(id, gameId) {
       try {
         const collection = await Collections.findOne({
           where: {
@@ -63,7 +77,7 @@ module.exports = (sequelize, DataTypes) => {
           },
           include: ["games"],
         });
-        const game = await collection.removeGames(gameData.gameId);
+        const game = await collection.removeGames(gameId);
         return game;
       } catch (error) {
         console.error(error);
@@ -92,11 +106,11 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     //! Methode pour supprimer une collection
-    static async deleteCollectionToDatabase(collectionData) {
+    static async deleteCollection(id) {
       try {
         const collection = await Collections.destroy({
           where: {
-            id: collectionData.id,
+            id: id,
           },
         });
         return collection;

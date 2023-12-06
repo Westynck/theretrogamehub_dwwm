@@ -1,4 +1,6 @@
 const { Games } = require("../models");
+const { Collections } = require("../models");
+const { CollectionsGames } = require("../models");
 
 const gamesController = {
   getAllGames: async (req, res) => {
@@ -22,25 +24,84 @@ const gamesController = {
     }
   },
 
-  findGameByCategory: async (req, res) => {
-    const { title } = req.params;
+  addGameToCollection: async (req, res) => {
+    const collectionId = req.params.id;
+    const gameId = req.body.games_id;
+
     try {
-      const game = await Games.getGameByCategories(title);
-      res.json(game);
+      // Vérifier si la collection existe
+      const collection = await Collections.checkCollection(collectionId);
+      if (!collection) {
+        return res.status(404).json({ error: "la collection n'existe pas" });
+      }
+
+      // Vérifier si le jeu existe
+      const game = await Games.getGameById(gameId);
+      if (!game) {
+        return res.status(404).json({ error: "le jeu n'existe pas" });
+      }
+
+      //Vérifier si le jeu est déjà dans la collection
+      const gameInCollection = await CollectionsGames.checkGameInCollection(
+        collectionId,
+        gameId
+      );
+      if (gameInCollection) {
+        return res
+          .status(400)
+          .json({ error: "le jeu est déjà dans la collection" });
+      }
+
+      //!! Ajouter le jeu à la collection
+      const addedGame = await CollectionsGames.addGameToCollection(
+        collectionId,
+        gameId
+      );
+
+      // Réponse en cas de succès
+      res.status(200).json({
+        message: "le jeu a bien été ajouté à la collection",
+        addedGame,
+      });
     } catch (error) {
-      console.error(error);
-      res.status(500).json(error.message);
+      // Gestion des erreurs
+      res.status(500).json({ error: error.message });
     }
   },
 
-  getAllGamesFromCollection: async (req, res) => {
-    const { title } = req.params;
+  removeGameFromCollection: async (req, res) => {
+    const collectionId = req.params.id;
+    const gameId = req.body.games_id;
     try {
-      const game = await Games.getAllGamesFromCollectionToDatabase(title);
-      res.json(game);
+      const collection = await Collections.checkCollection(collectionId);
+      if (!collection) {
+        return res.status(404).json({ error: "la collection n'existe pas" });
+      }
+
+      const game = await Games.getGameById(gameId);
+      if (!game) {
+        return res.status(404).json({ error: "le jeu n'existe pas" });
+      }
+
+      const gameInCollection = await CollectionsGames.checkGameInCollection(
+        collectionId,
+        gameId
+      );
+      if (!gameInCollection) {
+        return res
+          .status(404)
+          .json({ error: "le jeu n'est pas dans la collection" });
+      }
+
+      const removedGame = await CollectionsGames.removeGameFromCollection(
+        collectionId,
+        gameId
+      );
+      res.status(200).json({
+        message: "le jeu a bien été supprimé de la collection",
+      });
     } catch (error) {
-      console.error(error);
-      res.status(500).json(error.message);
+      res.status(500).json({ error: error.message });
     }
   },
 

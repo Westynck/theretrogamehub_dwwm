@@ -3,6 +3,8 @@
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 
+require("dotenv").config();
+
 const crypto = require("crypto");
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
@@ -40,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
           confirmUseConditions: true,
           activationToken: crypto.randomBytes(20).toString("hex"),
         });
+
         console.log(
           "🚀 ~ file: members.js:43 ~ Members ~ register ~ member:",
           member
@@ -259,6 +262,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       nickname: DataTypes.STRING,
       email: DataTypes.STRING,
+      role: {
+        type: DataTypes.INTEGER,
+        defaultValue: process.env.MEMBER,
+        allowNull: false,
+      },
       password: DataTypes.STRING,
       confirmUseConditions: DataTypes.BOOLEAN,
       isActive: DataTypes.BOOLEAN,

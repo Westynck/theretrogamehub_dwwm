@@ -1,6 +1,9 @@
 const express = require("express");
 const editorsController = require("../controllers/editorsController");
 const router = express.Router();
+const verifyMember = require("../middleware/verifyMember");
+
+router.use(verifyMember);
 
 router.get("/editor/:name", editorsController.findEditor); //cette route permet de récupérer un éditeur par son nom
 

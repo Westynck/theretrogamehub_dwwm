@@ -10,7 +10,7 @@ const adminController = {
     try {
       const games = await Games.getAllGames();
       if (!games) {
-        res.status(400).json({ error: "Failed to get games" });
+        res.status(400).json({ error: "Echec de la récupération des jeux" });
       } else {
         res.status(200).json(games);
       }
@@ -24,7 +24,7 @@ const adminController = {
     try {
       const game = await Games.getGameByIdzq(id);
       if (!game) {
-        res.status(400).json({ error: "Game not found" });
+        res.status(400).json({ error: "Jeu non trouvé" });
       } else {
         res.status(200).json(game);
       }
@@ -38,9 +38,9 @@ const adminController = {
     try {
       const game = await Games.addGameToDatabase(gameData);
       if (!game) {
-        res.status(400).json({ error: "Failed to create game" });
+        res.status(400).json({ error: " Echec de la création du jeu" });
       } else {
-        res.status(201).json({ message: "Game created successfully" });
+        res.status(201).json({ message: "Jeu créé avec succès" });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -53,9 +53,9 @@ const adminController = {
     try {
       const game = await Games.updateGameToDatabase(id, gameData);
       if (!game) {
-        res.status(400).json({ error: "Failed to update game" });
+        res.status(400).json({ error: "Echec de la mise à jour du jeu" });
       } else {
-        res.status(200).json({ message: "Game updated successfully" });
+        res.status(200).json({ message: "Jeu mis à jour avec succès" });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -67,9 +67,9 @@ const adminController = {
     try {
       const game = await Games.deleteGameToDatabase(id);
       if (!game) {
-        res.status(400).json({ error: "Failed to delete game" });
+        res.status(400).json({ error: "Echec de la suppression du jeu" });
       } else {
-        res.status(200).json({ message: "Game deleted successfully" });
+        res.status(200).json({ message: "Jeu supprimé avec succès" });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });
