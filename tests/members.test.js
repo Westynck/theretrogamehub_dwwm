@@ -1,6 +1,8 @@
 const { Members } = require("../models");
 const bcrypt = require("bcrypt");
 
+//!! utiliser la commande suivante pour lancer les tests: NODE_ENV=developpement npm run test
+
 describe("Members model", () => {
   test("Création d'un membre", async () => {
     const memberData = {
