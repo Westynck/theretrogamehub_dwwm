@@ -54,3 +54,8 @@ npx sequelize-cli db:migrate
 ```bash
 npm run dev
 ```
+4. Utiliser la commande suivante pour lancer les tests:
+
+```bash
+ NODE_ENV=developpement npm run test
+```
