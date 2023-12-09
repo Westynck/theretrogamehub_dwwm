@@ -1,13 +1,13 @@
 const authenticate = require("../middleware/authenticate");
 require("dotenv").config();
 
-// Middleware pour vérifier un membre
 const verifyMember = [
-  authenticate,
+  authenticate, // Vérifie si l'utilisateur est connecté
   (req, res, next) => {
     console.log("ROLECHECK - REQ.ROLE : ", req.user.role);
     console.log("ROLECHECK - AUTHROLES : ", process.env.MEMBER);
 
+    //la condition est vérifiée si le role de l'utilisateur est égal au role membre
     if (req.user.role === Number(process.env.MEMBER)) {
       next();
     } else {

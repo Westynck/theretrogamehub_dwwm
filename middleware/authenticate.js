@@ -18,10 +18,10 @@ const authenticate = (req, res, next) => {
     return res.status(401).json({ message: "Token non fourni" });
   }
 
-  //!! sinon on vérifie le token avec la clé secrète et on récupère les données du token (id, email, isAdmin) dans decoded et on les stocke dans req.user pour les utiliser dans les routes qui en ont besoin
+  //!! sinon on vérifie le token avec la clé secrète et on récupère les données du token (id, role, nickname) dans decoded
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    req.user = decoded; //!! on stocke les données du token dans req.user
     req.role = decoded;
 
     next();
