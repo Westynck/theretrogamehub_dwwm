@@ -3,6 +3,10 @@ const { Collections } = require("../models");
 const collectionsController = {
   getAllCollectionsFromMember: async (req, res) => {
     const { memberId } = req.params;
+
+    if (memberId != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const collections = await Collections.getAllCollectionsFromMember(
         memberId
@@ -19,6 +23,10 @@ const collectionsController = {
 
   getOneCollectionFromMember: async (req, res) => {
     const { memberId, collectionId } = req.params;
+
+    if (memberId != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const collection = await Collections.getOneCollectionFromMember(
         memberId,
@@ -34,6 +42,9 @@ const collectionsController = {
   addCollection: async (req, res) => {
     const { memberId } = req.params;
     const collectionData = req.body;
+
+    if (memberId != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
 
     try {
       const newCollection = await Collections.addCollection(
@@ -53,6 +64,10 @@ const collectionsController = {
   updateCollectionName: async (req, res) => {
     const { id } = req.params;
     const collectionData = req.body;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const collection = await Collections.updateCollectionName(
         id,
@@ -70,6 +85,9 @@ const collectionsController = {
 
   deleteCollection: async (req, res) => {
     const { id } = req.params;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
 
     try {
       const collection = await Collections.deleteCollection(id);

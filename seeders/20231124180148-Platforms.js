@@ -10,6 +10,8 @@ module.exports = {
         releaseDate: "2020-11-12",
         state: "new",
         manufacturer: "Sony",
+        cover:
+          "https://image.jeuxvideo.com/medias-sm/163293/1632926824-300-jaquette-avant.gif",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -19,6 +21,8 @@ module.exports = {
         releaseDate: "2020-11-10",
         state: "new",
         manufacturer: "Microsoft",
+        cover:
+          "https://image.jeuxvideo.com/medias-sm/163293/1632926824-300-jaquette-avant.gif",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -28,6 +32,8 @@ module.exports = {
         releaseDate: "2013-11-15",
         state: "used",
         manufacturer: "Sony",
+        cover:
+          "https://image.jeuxvideo.com/medias-sm/163293/1632926824-300-jaquette-avant.gif",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -37,6 +43,8 @@ module.exports = {
         releaseDate: "2013-11-22",
         state: "used",
         manufacturer: "Microsoft",
+        cover:
+          "https://image.jeuxvideo.com/medias-sm/163293/1632926824-300-jaquette-avant.gif",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -46,6 +54,8 @@ module.exports = {
         releaseDate: "2017-03-03",
         state: "new",
         manufacturer: "Nintendo",
+        cover:
+          "https://image.jeuxvideo.com/medias-sm/163293/1632926824-300-jaquette-avant.gif",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -55,6 +65,8 @@ module.exports = {
         releaseDate: "2019-09-20",
         state: "new",
         manufacturer: "Nintendo",
+        cover:
+          "https://image.jeuxvideo.com/medias-sm/163293/1632926824-300-jaquette-avant.gif",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

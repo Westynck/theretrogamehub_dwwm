@@ -50,6 +50,10 @@ const adminController = {
   updateGame: async (req, res) => {
     const { id } = req.params;
     const gameData = req.body;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const game = await Games.updateGameToDatabase(id, gameData);
       if (!game) {
@@ -64,6 +68,10 @@ const adminController = {
 
   deleteGame: async (req, res) => {
     const { id } = req.params;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const game = await Games.deleteGameToDatabase(id);
       if (!game) {
@@ -120,6 +128,10 @@ const adminController = {
   updatePlatform: async (req, res) => {
     const { id } = req.params;
     const platformData = req.body;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const platform = await Platforms.updatePlatform(id, platformData);
       if (!platform) {
@@ -134,6 +146,10 @@ const adminController = {
 
   deletePlatform: async (req, res) => {
     const { id } = req.params;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const platform = await Platforms.deletePlatform(id);
       if (!platform) {
@@ -161,6 +177,10 @@ const adminController = {
 
   memberDetails: async (req, res) => {
     const { id } = req.params;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const member = await Members.getMemberDetails(id);
       if (!member) {
@@ -203,6 +223,10 @@ const adminController = {
 
   blockMember: async (req, res) => {
     const { id } = req.params;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const member = await Members.blockMember(id);
       if (!member) {
@@ -217,6 +241,10 @@ const adminController = {
 
   unblockMember: async (req, res) => {
     const { id } = req.params;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const member = await Members.unblockMember(id);
       if (!member) {
@@ -231,6 +259,10 @@ const adminController = {
 
   deleteMember: async (req, res) => {
     const { id } = req.params;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const member = await Members.deleteMember(id);
       if (!member) {
@@ -287,6 +319,10 @@ const adminController = {
   updateEditor: async (req, res) => {
     const { id } = req.params;
     const editorData = req.body;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const editor = await Editors.updateEditorToDatabase(id, editorData);
       if (!editor) {
@@ -301,6 +337,10 @@ const adminController = {
 
   deleteEditor: async (req, res) => {
     const { id } = req.params;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const editor = await Editors.deleteEditor(id);
       if (!editor) {
@@ -357,6 +397,10 @@ const adminController = {
   updateDeveloper: async (req, res) => {
     const { id } = req.params;
     const developerData = req.body;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const developer = await Developers.updateDeveloper(id, developerData);
       if (!developer) {
@@ -371,6 +415,10 @@ const adminController = {
 
   deleteDeveloper: async (req, res) => {
     const { id } = req.params;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const developer = await Developers.deleteDeveloper(id);
       if (!developer) {
@@ -398,6 +446,7 @@ const adminController = {
 
   getGenreById: async (req, res) => {
     const { id } = req.params;
+
     try {
       const genre = await Genres.getGenreById(id);
       if (!genre) {
@@ -427,6 +476,10 @@ const adminController = {
   updateGenre: async (req, res) => {
     const { id } = req.params;
     const genreData = req.body;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const genre = await Genres.updateGenreToDatabase(id, genreData);
       if (!genre) {
@@ -441,6 +494,10 @@ const adminController = {
 
   deleteGenre: async (req, res) => {
     const { id } = req.params;
+
+    if (id != req.user.id)
+      return res.status(401).json({ error: "Non autorisé" });
+
     try {
       const genre = await Genres.deleteGenreToDatabase(id);
       if (!genre) {

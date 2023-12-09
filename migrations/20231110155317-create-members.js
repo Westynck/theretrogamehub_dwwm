@@ -11,10 +11,12 @@ module.exports = {
       },
       nickname: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false,
       },
       role: {

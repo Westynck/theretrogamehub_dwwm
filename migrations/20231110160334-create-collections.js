@@ -11,6 +11,7 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       MemberId: {
         type: Sequelize.INTEGER,

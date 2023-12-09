@@ -146,6 +146,7 @@ module.exports = (sequelize, DataTypes) => {
       state: DataTypes.STRING,
       note: DataTypes.FLOAT,
       location: DataTypes.STRING,
+      cover: DataTypes.STRING,
     },
     {
       sequelize,

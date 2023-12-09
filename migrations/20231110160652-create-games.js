@@ -11,24 +11,35 @@ module.exports = {
       },
       title: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,
+        allowNull: false,
       },
       price: {
         type: Sequelize.DECIMAL,
+        allowNull: false,
       },
       releaseDate: {
         type: Sequelize.DATE,
+        allowNull: false,
       },
       state: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       note: {
         type: Sequelize.FLOAT,
+        allowNull: false,
       },
       location: {
         type: Sequelize.STRING,
+        allowNull: false,
+      },
+      cover: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
