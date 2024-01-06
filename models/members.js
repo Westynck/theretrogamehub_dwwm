@@ -149,7 +149,6 @@ module.exports = (sequelize, DataTypes) => {
             "activationToken",
             "updatedAt",
             "createdAt",
-            "isActive",
             "confirmUseConditions",
           ],
         },
@@ -255,6 +254,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           allowNull: false,
         },
+        onDelete: "CASCADE",
       });
     }
   }

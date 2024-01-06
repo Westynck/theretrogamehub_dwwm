@@ -224,15 +224,17 @@ const adminController = {
   blockMember: async (req, res) => {
     const { id } = req.params;
 
-    if (id != req.user.id)
+    if (req.user.role !== 1245)
       return res.status(401).json({ error: "Non autorisé" });
 
     try {
       const member = await Members.blockMember(id);
       if (!member) {
-        res.status(400).json({ error: "Failed to block member" });
+        res.status(400).json({ error: " Echec du blocage du membre" });
       } else {
-        res.status(200).json({ message: "Member blocked successfully" });
+        res
+          .status(200)
+          .json({ message: `Le membre ${member.nickname} a été bloqué` });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -242,15 +244,17 @@ const adminController = {
   unblockMember: async (req, res) => {
     const { id } = req.params;
 
-    if (id != req.user.id)
+    if (req.user.role !== 1245)
       return res.status(401).json({ error: "Non autorisé" });
 
     try {
       const member = await Members.unblockMember(id);
       if (!member) {
-        res.status(400).json({ error: "Failed to unblock member" });
+        res.status(400).json({ error: "Echec du déblocage du membre" });
       } else {
-        res.status(200).json({ message: "Member unblocked successfully" });
+        res
+          .status(200)
+          .json({ message: `Le membre ${member.nickname} a été débloqué` });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -260,7 +264,7 @@ const adminController = {
   deleteMember: async (req, res) => {
     const { id } = req.params;
 
-    if (id != req.user.id)
+    if (req.user.role !== 1245)
       return res.status(401).json({ error: "Non autorisé" });
 
     try {

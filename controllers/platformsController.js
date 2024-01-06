@@ -5,7 +5,7 @@ const { CollectionsPlatforms } = require("../models"); // Modèle d'association 
 const platformsController = {
   getAllPlatforms: async (req, res) => {
     try {
-      const platforms = await Platforms.getAllPlatformsToDatabase();
+      const platforms = await Platforms.getAllPlatforms();
       res.json(platforms);
     } catch (error) {
       console.error(error);

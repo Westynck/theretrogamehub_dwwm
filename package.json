@@ -4,12 +4,12 @@
   "description": "projet dwwm backend",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
     "dev": "nodemon index.js",
     "seed:all": "npx sequelize-cli db:seed:all",
     "migrate:up": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
-    "migrate:undo:all": "npx sequelize-cli db:migrate:undo:all"
+    "migrate:undo:all": "npx sequelize-cli db:migrate:undo:all",
+    "test": "jest"
   },
   "author": "philippe",
   "license": "ISC",
@@ -30,6 +30,6 @@
     "sequelize": "^6.34.0"
   },
   "directories": {
-    "test": "test"
+    "test": "tests"
   }
 }

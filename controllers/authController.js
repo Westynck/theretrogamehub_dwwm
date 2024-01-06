@@ -19,7 +19,13 @@ const authController = {
             expiresIn: "1h",
           }
         );
-        res.status(200).json({ token, member });
+        res.status(200).json({
+          message: "Connexion réussie",
+          token,
+          id: member.id,
+          nickname: member.nickname,
+          role: member.role,
+        });
       } else {
         res.status(400).json({ error: " le compte n'est pas activé" });
       }

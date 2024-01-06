@@ -23,6 +23,8 @@ const authenticate = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded; //!! on stocke les données du token dans req.user
     req.role = decoded;
+    console.log("req.user : ", req.user);
+    console.log("req.role : ", req.role);
 
     next();
   } catch (err) {

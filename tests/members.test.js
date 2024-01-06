@@ -1,16 +1,25 @@
 const { Members } = require("../models");
 const bcrypt = require("bcrypt");
 
-//!! utiliser la commande suivante pour lancer les tests: NODE_ENV=developpement npm run test
-
 describe("Members model", () => {
-  test("Création d'un membre", async () => {
+  beforeAll(async () => {
+    await Members.destroy({
+      where: {},
+    });
+
+    await Members.sequelize.query(
+      "ALTER SEQUENCE public.members_id_seq RESTART WITH 1;"
+    );
+  });
+
+  it("Création d'un membre", async () => {
     const memberData = {
       nickname: "test",
       email: "test@test.com",
       password: "test",
       confirmPassword: "test",
       confirmUseConditions: true,
+      isActive: false,
     };
 
     const member = await Members.register(memberData);
@@ -34,5 +43,12 @@ describe("Members model", () => {
     );
 
     expect(isPasswordValid).toBeTruthy();
+  });
+
+  it("Récupération d'un membre par son nickname", async () => {
+    const member = await Members.getMemberByNickname("test");
+
+    expect(member).toBeTruthy();
+    expect(member.nickname).toBe("test");
   });
 });

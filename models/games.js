@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         const game = await Games.create({
           ...gameData,
         });
+
         return game;
       } catch (error) {
         console.error(error);
@@ -129,6 +130,7 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: "genres_id",
         as: "genres",
       });
+      // un jeu appartient au minimum à aucun développeur et au maximum à plusieurs développeurs (belongsToMany) 0:n
       models.Games.belongsToMany(models.Developers, {
         through: "Games_Developers",
         foreignKey: "games_id",

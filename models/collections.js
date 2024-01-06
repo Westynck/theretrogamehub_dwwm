@@ -128,6 +128,7 @@ module.exports = (sequelize, DataTypes) => {
           name: "MemberId",
           allowNull: false,
         },
+        onDelete: "CASCADE",
       });
       //une Collection appartient au minimum à aucune plateforme et au maximum à plusieurs plateformes (belongsToMany) 0:n
       models.Collections.belongsToMany(models.Platforms, {

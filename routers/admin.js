@@ -61,7 +61,11 @@ router.post(
   adminController.unblockMember
 ); //cette route permet de débloquer un membre
 
-router.delete("/admin/members/:id", verifyAdmin, adminController.deleteMember); //cette route permet de supprimer un membre
+router.delete(
+  "/admin/members/delete/:id",
+  verifyAdmin,
+  adminController.deleteMember
+); //cette route permet de supprimer un membre
 
 //!! les routes admin pour la gestion des éditeurs
 router.get("/admin/editors", verifyAdmin, adminController.getAllEditors); //cette route permet de récupérer tous les éditeurs
